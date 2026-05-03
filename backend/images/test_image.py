@@ -20,7 +20,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from image_gen import generate_images
 
 def run_test():
-    topic = "Image of how to repair a car tire"
+    topic = "Image of how to change car oil"
     print(f"🧠 'Text First' visual test for: {topic}")
     print("---------------------------------------")
     
