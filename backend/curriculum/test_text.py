@@ -7,7 +7,7 @@ load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def test_text():
-    print("🧠 Generating curriculum for 'Photosynthesis'...")
+    print("Generating curriculum for 'Photosynthesis'...")
     result = generate_curriculum(client, "Photosynthesis")
     print("\n--- GENERATED CONTENT ---")
     print(result)

@@ -1,11 +1,11 @@
-import os
-from google import genai
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPM
-import io
+import os # OS module for file handling
+from google import genai # Gemini API client
+from svglib.svglib import svg2rlg # For converting SVG code to a renderable format
+from reportlab.graphics import renderPM # For rendering to PNG
+import io # For in-memory file handling
 
 def generate_images(client, topic):
-    # 1. Ask the free text model to write SVG code
+
     prompt = f"""
     Write only the raw code for a detailed, colorful SVG diagram of {topic}. 
     Include clear labels for key parts. Use a white background.
@@ -17,26 +17,28 @@ def generate_images(client, topic):
         contents=prompt
     )
 
-    # 2. Extract the SVG code (clean up any markdown backticks)
+    # Strip backticks for SVG code
     svg_content = response.text.replace("```svg", "").replace("```", "").strip()
 
-    # 3. Ensure output directory exists
+    # Create folder for images if it doesn't exist
     output_dir = "outputs"
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    # 4. Save SVG and Render to PNG
+    # Save SVG and png file
     svg_path = f"{output_dir}/{topic.replace(' ', '_')}.svg"
     png_path = f"{output_dir}/{topic.replace(' ', '_')}.png"
 
-    with open(svg_path, "w", encoding="utf-8") as f:
-        f.write(svg_content)
+    # Writes svg content to the disk
+    with open(svg_path, "w", encoding="utf-8") as infile:
+        infile.write(svg_content)
 
-    # Use svglib to convert SVG to a drawing, then render to PNG
+    # Convert SVG to PNG using svglib and reportlab
+    # Return png or SVG if PNG generation fails
     try:
         drawing = svg2rlg(svg_path)
         renderPM.drawToFile(drawing, png_path, fmt="PNG")
         return png_path
     except Exception as e:
         print(f"Render Error: {e}")
-        return svg_path  # Fallback to the SVG file if PNG fails
+        return svg_path 

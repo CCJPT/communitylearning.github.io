@@ -1,6 +1,6 @@
-import os
-from dotenv import load_dotenv
-from googleapiclient.discovery import build
+import os # For environment variable handling
+from dotenv import load_dotenv # To load environment variables from a .env file
+from googleapiclient.discovery import build # To interact with the YouTube Data API
 
 # Load environment variables
 load_dotenv()
@@ -15,6 +15,7 @@ def get_youtube_videos(topic, max_results=3):
         # Search for educational videos
         search_query = f"{topic} educational tutorial"
         
+        # Make the API request to search for videos
         request = youtube.search().list(
             q=search_query,
             part="snippet",
@@ -24,6 +25,7 @@ def get_youtube_videos(topic, max_results=3):
         )
         response = request.execute()
 
+        # Process the response to extract video details
         videos = []
         for item in response.get("items", []):
             video_id = item["id"]["videoId"]
@@ -38,10 +40,3 @@ def get_youtube_videos(topic, max_results=3):
     except Exception as e:
         print(f"❌ YouTube API Error: {e}")
         return []
-
-if __name__ == "__main__":
-    # Quick Test
-    print("🚀 Testing New YouTube Key...")
-    results = get_youtube_videos("How to bake a cake")
-    for v in results:
-        print(f"Found: {v['title']}")

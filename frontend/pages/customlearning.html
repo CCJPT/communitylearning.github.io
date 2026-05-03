@@ -76,17 +76,19 @@ async function generateNewPath() {
     try {
         // 1. CALL THE BACKEND
         const response = await fetch('/api/generate-all', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ topic: topic })
-        });
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic: topic })
+    });
 
-        const data = await response.json();
+    const data = await response.json();
 
-        if (data.error) {
-            alert("Error: " + data.error);
-            return;
-        }
+    // Check if data.curriculum exists before using it
+    if (data.curriculum) {
+        document.getElementById('text-content').innerHTML = data.curriculum;
+    } else {
+        console.error("Payload missing curriculum data:", data);
+    }
 
         // 2. INJECT THE CURRICULUM
         document.getElementById('topic-title').innerText = topic;
