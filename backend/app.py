@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 # Import your custom modules
 from curriculum.text_gen import generate_curriculum
 from images.image_gen import generate_images
-from videos.video_gen import generate_video
+from videos.youtube_service import get_youtube_videos # New Import
 
 load_dotenv()
 app = Flask(__name__)
@@ -19,15 +19,17 @@ def generate_all():
     data = request.json
     topic = data.get('topic')
 
-    # Run all three features!
-    text_path = generate_curriculum(client, topic)
+    # 1. Generate text and images locally/via Gemini
+    text_content = generate_curriculum(client, topic)
     img_path = generate_images(client, topic)
-    vid_path = generate_video(client, topic)
+    
+    # 2. Get real YouTube embed links instead of generating a file
+    video_list = get_youtube_videos(topic)
 
     return jsonify({
-        "curriculum": text_path,
+        "curriculum": text_content,
         "image_url": img_path,
-        "video_url": vid_path
+        "videos": video_list # Returns a list of titles and embed URLs
     })
 
 if __name__ == '__main__':
