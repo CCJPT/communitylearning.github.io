@@ -49,7 +49,7 @@ source .venv/bin/activate
 
 ## Dependencies
 ```
-pip install flask flask-cors python-dotenv google-genai google-api-python-client
+pip install flask flask-cors python-dotenv google-genai google-api-python-client svglib
 ```
 
 ## Environment configuration
