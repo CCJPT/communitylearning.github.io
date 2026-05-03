@@ -5,7 +5,7 @@ from google import genai
 from dotenv import load_dotenv
 
 # Import your custom modules
-from curriculum.text_gen import generate_learning_path
+from curriculum.text_gen import generate_curriculum
 from images.image_gen import generate_images
 from videos.video_gen import generate_video
 
@@ -20,7 +20,7 @@ def generate_all():
     topic = data.get('topic')
 
     # Run all three features!
-    text_path = generate_learning_path(client, topic)
+    text_path = generate_curriculum(client, topic)
     img_path = generate_images(client, topic)
     vid_path = generate_video(client, topic)
 
