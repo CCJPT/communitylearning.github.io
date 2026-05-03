@@ -1,31 +1,33 @@
 import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from google import genai  
+from google import genai
 from dotenv import load_dotenv
+
+# Import your custom modules
+from curriculum.text_gen import generate_learning_path
+from images.image_gen import generate_image
+from videos.video_gen import generate_video
 
 load_dotenv()
 app = Flask(__name__)
 CORS(app)
-
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-@app.route('/api/generate', methods=['POST'])
-
-def generate():
+@app.route('/api/generate-all', methods=['POST'])
+def generate_all():
     data = request.json
-    user_topic = data.get('topic', 'content')
+    topic = data.get('topic')
 
-    prompt = f"Create a learning module for: {user_topic}. Be concise and professional. Include key points, examples, and a summary."
-
-    response = client.models.generate_content(
-        model="gemini-3-flash-preview", 
-        contents=prompt
-    )
+    # Run all three features!
+    text_path = generate_learning_path(client, topic)
+    img_path = generate_image(client, topic)
+    vid_path = generate_video(client, topic)
 
     return jsonify({
-        "status": "success",
-        "curriculum": response.text
+        "curriculum": text_path,
+        "image_url": img_path,
+        "video_url": vid_path
     })
 
 if __name__ == '__main__':
