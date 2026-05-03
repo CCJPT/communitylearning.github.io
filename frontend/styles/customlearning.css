@@ -8,7 +8,79 @@
     box-sizing: border-box;
 }
 
+body {@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap');
+
+* { box-sizing: border-box; }
+
 body {
+    font-family: 'DM Sans', sans-serif;
+    margin: 0;
+    background-color: #faf9f7;
+}
+
+.header {
+    padding: 0px;
+    background: #faac48;
+    color: white;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.header-logo {
+    height: 50px; /* Adjust this height to fit your header */
+    width: auto;
+    border-radius: 50%; /* Optional: makes it look like a circular badge */
+}
+
+.header h1 { font-family: 'DM Serif Display', serif; margin: 0; }
+
+.navbar {
+    background-color: #302a23;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 24px;
+}
+
+.navbar a { color: #e0d8cf; text-decoration: none; padding: 10px 15px; }
+
+.signup-btn {
+    background-color: #faac48;
+    color: white !important;
+    border-radius: 50px;
+    padding: 8px 25px !important;
+    font-weight: 600;
+}
+
+.main-content { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #ece8e1;
+}
+
+.search-container { display: flex; gap: 10px; margin: 20px 0; }
+
+#topic-input { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #ddd; }
+
+#generate-btn {
+    background-color: #302a23;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.footer { padding: 20px; text-align: center; background: #302a23; color: #8a7f72; }
     font-family: 'DM Sans', Arial, sans-serif;
     margin: 0;
     background-color: #faf9f7;

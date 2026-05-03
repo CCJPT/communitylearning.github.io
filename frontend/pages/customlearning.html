@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Community Learning - Custom Path</title>
+    <title>Community Learning - Custom</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/customlearning.css">
@@ -10,53 +10,50 @@
 
 <div class="header">
     <h1>Community Learning</h1>
+    <img src="https://cdn.discordapp.com/attachments/1495923678704173247/1500531680581255229/Untitled31_20260503091659.png?ex=69f8c687&is=69f77507&hm=d4a5738414f53ce80d2ee380067a6b9505ab04540a0c6cf0ff45d317267a3a90" width="150">
 </div>
 
 <div class="navbar">
-    <a href="/">Home</a>
-    <a href="customlearning.html">Custom Learning</a>
-    <a href="#">Link</a>
-    <a href="#" class="right">Link</a>
-</div>
-
-<div class="search-container">
-    <input type="text" id="topic-input" placeholder="Enter a topic (e.g. Photosynthesis)">
-    <button id="generate-btn" onclick="generateNewPath()">Generate</button>
-</div>
-
-<div class="row">
-    <!-- Sidebar / Left Column -->
-    <div class="side">
-        <h2>About Us</h2>
-        <p>Four Pilipino coders wanting to make learning more accesible to everyone.</p>
-        
-        <h3>Your Progress</h3>
-        <p>Curriculum updates live as you generate new topics.</p>
+    <div class="nav-links">
+        <!-- Using "/" tells Flask to go to the main index route -->
+        <a href="/">Home</a> 
+        <a href="customlearning.html">Custom Learning</a>
     </div>
+    <a href="#" class="signup-btn">Signup</a>
+</div>
 
-    <!-- Main Column / Right Column -->
-    <div class="main">
+<div class="main-content">
+    <div class="card">
+        <!-- Added topic-title ID so the script can update it[cite: 7] -->
         <h2 id="topic-title">Custom Learning Dashboard</h2>
         
+        <div class="search-container">
+            <input type="text" id="topic-input" placeholder="Enter a topic...">
+            <!-- Added onclick attribute -->
+            <button id="generate-btn" onclick="generateNewPath()">Generate</button>
+        </div>
+
+        <!-- Added image element for Gemini output -->
         <div id="ai-image-container">
             <img id="ai-generated-image" src="" alt="" style="max-width:100%; border-radius:8px; display:none;">
         </div>
 
         <div id="text-content">
-            <p>Please enter a topic above to begin your personalized learning journey. Your curriculum will appear here.</p>
+            <p>Your curriculum will appear here.</p>
         </div>
 
-        <div id="yt-player-grid" class="video-grid">
-            <!-- YouTube videos from backend will be injected here -->
-        </div>
+        <!-- Added video grid for YouTube results[cite: 1, 7] -->
+        <div id="yt-player-grid" class="video-grid"></div>
     </div>
 </div>
+
+
 
 <div class="footer">
     <p>© 2026 Community Learning</p>
 </div>
 
-
+<!-- DO NOT DELETE-->
 <script>
 async function generateNewPath() {
     const topicInput = document.getElementById('topic-input');
@@ -120,6 +117,7 @@ async function generateNewPath() {
     }
 }
 </script>
+
 
 </body>
 </html>

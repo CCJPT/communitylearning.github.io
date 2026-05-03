@@ -1,33 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Community Learning</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="styles/homepage.css">
+    <title>Community Learning - Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/homepage.css">
 </head>
 <body>
 
 <div class="header">
-  <h1>Community Learning</h1>
+    <h1>Community Learning</h1>
+    <img src="https://cdn.discordapp.com/attachments/1495923678704173247/1500531680581255229/Untitled31_20260503091659.png?ex=69f8c687&is=69f77507&hm=d4a5738414f53ce80d2ee380067a6b9505ab04540a0c6cf0ff45d317267a3a90" width="150">
 </div>
 
 <div class="navbar">
-  <a href="/">Home</a>
-  <a href="customlearning.html">Custom Learning</a>
-  <a href="#">Link</a>
-  <a href="#" class="right">Link</a>
+    <div class="nav-links">
+        <a href="homepage.html">Home</a>
+        <a href="customlearning.html">Custom Learning</a>
+    </div>
+    <a href="#" class="signup-btn">Signup</a>
 </div>
 
-<div class="row">
-  <div class="side">
+<div class="grid-container">
+    <div class="grade-grid">
+        <div class="grade-section">
+            <h3>Pre-K - 5th Grade</h3>
+            <button>Start Learning</button>
+        </div>
+        <div class="grade-section">
+            <h3>6th - 8th Grade</h3>
+            <button>Start Learning</button>
+        </div>
+        <div class="grade-section">
+            <h3>High School</h3>
+            <button>Start Learning</button>
+        </div>
+        <div class="grade-section">
+            <h3>College</h3>
+            <button>Start Learning</button>
+        </div>
+        <!-- This spans 2 columns[cite: 3] -->
+        <div class="grade-section custom-section">
+            <h3>Custom</h3>
+            <p>Can't find your grade? Create a specific learning path.</p>
+            <button onclick="location.href='customlearning.html'">Custom Path</button>
+        </div>
+    </div>
+</div>
+
+<div class="about-section">
     <h2>About Us</h2>
     <p>Four Pilipino coders wanting to make learning more accesible to everyone.</p>
-  </div>
 </div>
 
 <div class="footer">
-  <p>© 2026 Community Learning</p>
+    <p>© 2026 Community Learning</p>
 </div>
 
 </body>
