@@ -9,6 +9,7 @@ def generate_curriculum(client, topic):
     - Key Concepts: 3-5 essential bullet points.
     - Deep Dive: A detailed explanation of the mechanics.
     - Quick Quiz: 3 multiple-choice questions with answers.
+    - Skip introduction and get straight to the point.
     
     Use clear Markdown formatting.
     """
