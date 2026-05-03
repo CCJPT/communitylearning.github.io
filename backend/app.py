@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 # Import your custom modules
 from curriculum.text_gen import generate_learning_path
-from images.image_gen import generate_image
+from images.image_gen import generate_images
 from videos.video_gen import generate_video
 
 load_dotenv()
@@ -21,7 +21,7 @@ def generate_all():
 
     # Run all three features!
     text_path = generate_learning_path(client, topic)
-    img_path = generate_image(client, topic)
+    img_path = generate_images(client, topic)
     vid_path = generate_video(client, topic)
 
     return jsonify({

@@ -1,18 +1,21 @@
-# backend\images\image_gen.py
+# backend/images/image_gen.py
 
-def generate_image(client, topic):
-    prompt = f"Create an image or diagram of {topic}."
+def generate_images(client, topic):
+    prompt = f"An educational diagram of {topic}, clear labels, high resolution."
 
-    # Change generate_image to generate_images
+    # Change the model string to this exact version:
     response = client.models.generate_images(
-        model="gemini-3-flash-image", # Use the flash image model
+        model="Imagen-3-flash-image",
         prompt=prompt
     )
 
-    # Note: response.generated_images is a list
     image = response.generated_images[0]
     
-    # Save the image logic here...
-    image_path = f"images/outputs/{topic.replace(' ', '_')}.png"
+    # Ensure the directory exists before saving
+    output_dir = "images/outputs"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    image_path = f"{output_dir}/{topic.replace(' ', '_')}.png"
     image.image.save(image_path)
     return image_path
