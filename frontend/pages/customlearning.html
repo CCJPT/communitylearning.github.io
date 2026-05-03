@@ -13,7 +13,7 @@
 </div>
 
 <div class="navbar">
-    <a href="homepage.html">Home</a>
+    <a href="/">Home</a>
     <a href="customlearning.html">Custom Learning</a>
     <a href="#">Link</a>
     <a href="#" class="right">Link</a>
@@ -58,15 +58,22 @@
 
 <script>
 async function generateNewPath() {
-    const topic = document.getElementById('topic-input').value;
+    const topicInput = document.getElementById('topic-input');
+    const topic = topicInput.value;
     const generateBtn = document.getElementById('generate-btn');
     
-    if (!topic) return alert("Please enter a topic!");
+    // Safety check
+    if (!topic) {
+        alert("Please enter a topic first!");
+        return;
+    }
 
+    // UI Feedback: Show the user something is happening
     generateBtn.innerText = "Generating...";
     generateBtn.disabled = true;
 
     try {
+        // 1. CALL THE BACKEND
         const response = await fetch('/api/generate-all', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -75,18 +82,23 @@ async function generateNewPath() {
 
         const data = await response.json();
 
-        // 1. Update Title and Text
+        if (data.error) {
+            alert("Error: " + data.error);
+            return;
+        }
+
+        // 2. INJECT THE CURRICULUM
         document.getElementById('topic-title').innerText = topic;
         document.getElementById('text-content').innerHTML = data.curriculum;
 
-        // 2. Update Image
-        const imgTag = document.getElementById('ai-generated-image');
+        // 3. INJECT THE IMAGE (if applicable)
+        const imgElement = document.getElementById('ai-generated-image');
         if (data.image_url) {
-            imgTag.src = data.image_url + '?t=' + new Date().getTime();
-            imgTag.style.display = 'block';
+            imgElement.src = data.image_url + '?t=' + new Date().getTime(); // Refresh image
+            imgElement.style.display = 'block';
         }
 
-        // 3. Update Video Grid
+        // 4. INJECT THE VIDEOS
         const videoGrid = document.getElementById('yt-player-grid');
         videoGrid.innerHTML = data.videos.map(video => `
             <div class="video-card">
@@ -97,8 +109,9 @@ async function generateNewPath() {
 
     } catch (error) {
         console.error("Connection failed:", error);
-        alert("Check if your Flask server is running!");
+        alert("Make sure your Python app.py is running!");
     } finally {
+        // Reset the button
         generateBtn.innerText = "Generate";
         generateBtn.disabled = false;
     }
