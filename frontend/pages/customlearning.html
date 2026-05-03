@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Community Learning - Custom Path</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/customlearning.css">
+</head>
+<body>
+
+<div class="header">
+    <h1>Community Learning</h1>
+</div>
+
+<div class="navbar">
+    <a href="homepage.html">Home</a>
+    <a href="customlearning.html">Custom Learning</a>
+    <a href="#">Link</a>
+    <a href="#" class="right">Link</a>
+</div>
+
+<div class="search-container">
+    <input type="text" id="topic-input" placeholder="Enter a topic (e.g. Photosynthesis)">
+    <button id="generate-btn" onclick="generateNewPath()">Generate</button>
+</div>
+
+<div class="row">
+    <!-- Sidebar / Left Column -->
+    <div class="side">
+        <h2>About Us</h2>
+        <p>Four Pilipino coders wanting to make learning more accesible to everyone.</p>
+        
+        <h3>Your Progress</h3>
+        <p>Curriculum updates live as you generate new topics.</p>
+    </div>
+
+    <!-- Main Column / Right Column -->
+    <div class="main">
+        <h2 id="topic-title">Custom Learning Dashboard</h2>
+        
+        <div id="ai-image-container">
+            <img id="ai-generated-image" src="" alt="" style="max-width:100%; border-radius:8px; display:none;">
+        </div>
+
+        <div id="text-content">
+            <p>Please enter a topic above to begin your personalized learning journey. Your curriculum will appear here.</p>
+        </div>
+
+        <div id="yt-player-grid" class="video-grid">
+            <!-- YouTube videos from backend will be injected here -->
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2026 Community Learning</p>
+</div>
+
+<script>
+async function generateNewPath() {
+    const topic = document.getElementById('topic-input').value;
+    const generateBtn = document.getElementById('generate-btn');
+    
+    if (!topic) return alert("Please enter a topic!");
+
+    generateBtn.innerText = "Generating...";
+    generateBtn.disabled = true;
+
+    try {
+        const response = await fetch('/api/generate-all', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ topic: topic })
+        });
+
+        const data = await response.json();
+
+        // 1. Update Title and Text
+        document.getElementById('topic-title').innerText = topic;
+        document.getElementById('text-content').innerHTML = data.curriculum;
+
+        // 2. Update Image
+        const imgTag = document.getElementById('ai-generated-image');
+        if (data.image_url) {
+            imgTag.src = data.image_url + '?t=' + new Date().getTime();
+            imgTag.style.display = 'block';
+        }
+
+        // 3. Update Video Grid
+        const videoGrid = document.getElementById('yt-player-grid');
+        videoGrid.innerHTML = data.videos.map(video => `
+            <div class="video-card">
+                <h4>${video.title}</h4>
+                <iframe width="100%" height="200" src="${video.url}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        `).join('');
+
+    } catch (error) {
+        console.error("Connection failed:", error);
+        alert("Check if your Flask server is running!");
+    } finally {
+        generateBtn.innerText = "Generate";
+        generateBtn.disabled = false;
+    }
+}
+</script>
+
+</body>
+</html>
