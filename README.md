@@ -13,7 +13,7 @@ Using Gemini to learn something new is sometimes hard to navigate as it is only 
 ### Backend
 
 <ul>Framework: Python / Flask</ul>
-<ul>Middleware: Flask-CORS (Cross Origin Resource Sharing</ul>
+<ul>Middleware: Flask-CORS (Cross Origin Resource Sharing)</ul>
 <ul>Security: Python Dotenv</ul>
 
 ### Integration 
